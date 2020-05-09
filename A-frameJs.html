@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+        <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script> 
+        <!--<script src="A-frameJS.js"></script>-->
+    </head>
+
+    <body id='body'>
+        <a-scene>
+            <!--Sky-->
+            <a-sky id='sky'
+            color="#98FB98">
+            </a-sky>
+
+            <!--Hoverable Box-->
+            <a-box class='hoverableBoxes'
+            position="-3 0.5 -3" 
+            rotation="0 45 0" 
+            color="white"
+            event-set__enter="_event: mouseenter; color: blue"
+            event-set__leave="_event: mouseleave; color: white">
+            </a-box>
+            
+            <!--Clickable Box-->
+            <a-box  class='clickableBoxes'       
+            position="3 0.5 -3" 
+            rotation="0 45 0"       
+            event-set__down="_event: mousedown; material.wireframe: true"
+            event-set__up="_event: mouseup; material.wireframe: false">
+            </a-box>
+
+            <!--Labelable Box-->
+            <a-box class="labelableBoxes"
+            position="0 0.5 -3" 
+            color="white"
+            event-set__enter="_event: mouseenter; _target: #boxText; visible: true"
+            event-set__leave="_event: mouseleave; _target: #boxText; visible: false">
+                <a-text id="boxText" value="This is a box" align="center" color="white" visible="false" position="0 -0.55 0.55"
+                geometry="primitive: plane; width: 1.5" material="color: #333; opacity: 0.5"></a-text>
+            </a-box>
+
+            <!--Controllers-->
+            <a-entity oculus-touch-controls="hand: left"></a-entity>
+            <a-entity oculus-touch-controls="hand: right"></a-entity>
+            <a-entity laser-controls="hand: right"></a-entity>
+            <a-entity laser-controls line="color: red; opacity: 0.75"></a-entity>
+
+            <a-camera>
+                <a-cursor></a-cursor>
+            </a-camera>
+        </a-scene>
+    </body>
+</html>

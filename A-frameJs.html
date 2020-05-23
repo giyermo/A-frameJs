@@ -5,52 +5,68 @@
         <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
         <script src="https://cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
         <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script> 
-        <!--<script src="A-frameJS.js"></script>-->
+        <script src="CleanerA-frameJs.js"></script>
     </head>
 
     <body id='body'>
-        <a-scene>
+        <a-scene id='a-scene'
+        stats>
+
             <!--Sky-->
             <a-sky id='sky'
-            color="#98FB98">
+            color="lightblue"
+            raycaster-sphere
+            log='message: sky is ready'>
             </a-sky>
 
+            <!--Plane-->
+            <a-plane id="plane"
+            position="0 -0.5 0"
+            color="#98FB98"
+            width="10000"
+            height="10000"
+            rotation="270 0 0"
+            raycaster-sphere
+            log="message: plane is ready">
+            </a-plane>
+
             <!--Hoverable Box-->
-            <a-box class='hoverableBoxes'
+            <!--<a-box id='HoverBox' 
+            class='hoverableBoxes'
             position="-3 0.5 -3" 
             rotation="0 45 0" 
+            scale='1 1 1'
+            visible='false'
             color="white"
             event-set__enter="_event: mouseenter; color: blue"
             event-set__leave="_event: mouseleave; color: white">
-            </a-box>
-            
-            <!--Clickable Box-->
-            <a-box  class='clickableBoxes'       
-            position="3 0.5 -3" 
-            rotation="0 45 0"       
-            event-set__down="_event: mousedown; material.wireframe: true"
-            event-set__up="_event: mouseup; material.wireframe: false">
-            </a-box>
+            </a-box>-->
+
 
             <!--Labelable Box-->
-            <a-box class="labelableBoxes"
+            <!--<a-box id='createrBox'
+            class="labelableBoxes"
             position="0 0.5 -3" 
-            color="white"
-            event-set__enter="_event: mouseenter; _target: #boxText; visible: true"
-            event-set__leave="_event: mouseleave; _target: #boxText; visible: false">
-                <a-text id="boxText" value="This is a box" align="center" color="white" visible="false" position="0 -0.55 0.55"
-                geometry="primitive: plane; width: 1.5" material="color: #333; opacity: 0.5"></a-text>
-            </a-box>
+            color="orange"
+            scale='1 1 1'
+            objects-create
+            event-set__enter="_event: mouseenter; _target: #appearableText; visible: true"
+            event-set__leave="_event: mouseleave; _target: #appearableText; visible: false">
+                <a-text id="scaleText" value="Click to scale up" align="center" color="white" visible="false" position="0 -0.55 0.55"
+                geometry="primitive: plane; width: 2" material="color: #333; opacity: 0.5"></a-text>-->
+                <!--<a-text id="appearableText" value="Click to create objects" align="center" color="white" visible="false" position="0 -0.55 0.55"
+                geometry="primitive: plane; width: 3" material="color: #333; opacity: 0.5"></a-text>
+            </a-box>-->
 
             <!--Controllers-->
-            <a-entity oculus-touch-controls="hand: left"></a-entity>
-            <a-entity oculus-touch-controls="hand: right"></a-entity>
-            <a-entity laser-controls="hand: right"></a-entity>
-            <a-entity laser-controls line="color: red; opacity: 0.75"></a-entity>
-
-            <a-camera>
-                <a-cursor></a-cursor>
-            </a-camera>
+            <a-entity movement-controls="fly: true">
+                <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #ffcccc" interface-create></a-entity>
+                <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #ffcccc" laser-controls="hand:right" raycaster="showline: true"></a-entity>
+                <a-entity cursor raycaster="far: 100; interval: 1000; objects: .clickable"></a-entity>
+                <a-entity camera position="0 1.6 0" look-controls="pointerLockEnabled: false;" id="camera">
+                    <!--<a-cursor></a-cursor>-->
+                </a-entity>
+            </a-entity>
         </a-scene>
     </body>
 </html>
